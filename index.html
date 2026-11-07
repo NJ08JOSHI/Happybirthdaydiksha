@@ -129,7 +129,7 @@ h2{font-size:clamp(28px,7vw,42px);font-weight:500;text-align:center;color:#71385
       </button>
       <div class="video-wrap" id="videoWrap">
         <video id="specialVideo" controls playsinline preload="metadata">
-          <source src="assets/video/special-video.mp4" type="video/mp4">
+          <source src="special-video.mp4" type="video/mp4">
         </video>
         <p class="video-note" id="videoNote">Add your video as <b>assets/video/special-video.mp4</b> to make it play here.</p>
       </div>
@@ -155,16 +155,16 @@ function go(n){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 const songs=[
- {title:'I Want You To Be My Last Love',artist:'Calum Scott',cover:'cover-01.webp',src:'assets/music/song-01.mp3'},
- {title:'I Wanna Grow Old With You',artist:'Westlife',cover:'cover-02.webp',src:'assets/music/song-02.mp3'},
- {title:'If You Only Knew',artist:'Riley Green',cover:'cover-03.webp',src:'assets/music/song-03.mp3'},
- {title:'Rang Jo Lagyo',artist:'Atif Aslam',cover:'cover-04.webp',src:'assets/music/song-04.mp3'},
- {title:'Glad That I Met You',artist:'Ed Sheeran',cover:'cover-05.webp',src:'assets/music/song-05.mp3'},
- {title:'Teri Nazron Ke Sadke',artist:'Ruposh',cover:'cover-06.webp',src:'assets/music/song-06.mp3'},
- {title:'Meri Zindagi Hai Tu',artist:'Asim Azhar',cover:'cover-07.webp',src:'assets/music/song-07.mp3'},
- {title:'Khoobsurat',artist:'Vishal Mishra',cover:'cover-08.webp',src:'assets/music/song-08.mp3'},
- {title:'Teri Chand Baliyan',artist:'Mehmood J',cover:'cover-09.webp',src:'assets/music/song-09.mp3'},
- {title:'Rehbara',artist:'Abhijeet Srivastava',cover:'cover-10.webp',src:'assets/music/song-10.mp3'}
+ {title:'I Want You To Be My Last Love',artist:'Calum Scott',cover:'cover-01.webp',src:'song-01.mp3'},
+ {title:'I Wanna Grow Old With You',artist:'Westlife',cover:'cover-02.webp',src:'song-02.mp3'},
+ {title:'If You Only Knew',artist:'Riley Green',cover:'cover-03.webp',src:'song-03.mp3'},
+ {title:'Rang Jo Lagyo',artist:'Atif Aslam',cover:'cover-04.webp',src:'song-04.mp3'},
+ {title:'Glad That I Met You',artist:'Ed Sheeran',cover:'cover-05.webp',src:'song-05.mp3'},
+ {title:'Teri Nazron Ke Sadke',artist:'Ruposh',cover:'cover-06.webp',src:'song-06.mp3'},
+ {title:'Meri Zindagi Hai Tu',artist:'Asim Azhar',cover:'cover-07.webp',src:'song-07.mp3'},
+ {title:'Khoobsurat',artist:'Vishal Mishra',cover:'cover-08.webp',src:'song-08.mp3'},
+ {title:'Teri Chand Baliyan',artist:'Mehmood J',cover:'cover-09.webp',src:'song-09.mp3'},
+ {title:'Rehbara',artist:'Abhijeet Srivastava',cover:'cover-10.webp',src:'song-10.mp3'}
 ];
 const $=id=>document.getElementById(id);
 let index=0, audio=new Audio(), repeat=false, shuffle=false;
@@ -172,7 +172,7 @@ function formatTime(v){return Number.isFinite(v)?Math.floor(v/60)+':'+String(Mat
 function paint(){
   const s=songs[index];
   $('cover').src='assets/covers/'+s.cover;
-  $('backdrop').style.backgroundImage=`url('assets/covers/${s.cover}')`;
+  $('backdrop').style.backgroundImage=`url('${s.cover}')`;
   $('songTitle').textContent=s.title;
   $('songArtist').textContent=s.artist;
   $('elapsed').textContent='0:00';
@@ -189,7 +189,7 @@ function play(){
     $('play').textContent='Ⅱ';
     $('hint').textContent='Now playing · '+songs[index].title;
   }).catch(()=>{
-    $('hint').textContent='Could not play this track. Check assets/music/song-'+String(index+1).padStart(2,'0')+'.mp3';
+    $('hint').textContent='Could not play this track. Check song-'+String(index+1).padStart(2,'0')+'.mp3';
   });
 }
 function toggle(){if(!audio.paused){audio.pause();$('play').textContent='▶'}else play()}
