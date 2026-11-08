@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7d4e3">
+<meta name="description" content="A little birthday world made just for Diksha.">
+<title>Happy Birthday, Diksha ♡</title>
+<style>
+:root{--rose:#8a3d64;--wine:#6c3156;--plum:#39243a;--pink:#f7d4e3;--cream:#fff8f4;--gold:#f6c86a}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Georgia,'Times New Roman',serif;background:#f8dce9;color:var(--plum)}
+body{overflow-x:hidden}
+button{font:inherit}
+.app{min-height:100svh;position:relative;isolation:isolate;background:radial-gradient(circle at 50% 12%,#fff8f4 0,#f9dce8 48%,#eebbd4 100%);overflow:hidden}
+.page{display:none;min-height:100svh;padding:max(24px,env(safe-area-inset-top)) 18px max(104px,calc(env(safe-area-inset-bottom) + 92px));animation:enter .55s ease both}
+.page.active{display:flex;flex-direction:column;align-items:center;justify-content:center}
+@keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.eyebrow{font:600 10px/1.6 Arial,sans-serif;letter-spacing:.27em;text-transform:uppercase;color:#9b5b7e;text-align:center}
+h1,h2,p{margin:0}
+h1{font-size:clamp(40px,10vw,68px);line-height:.98;text-align:center;color:var(--wine);font-weight:500}
+h2{font-size:clamp(28px,7vw,42px);font-weight:500;text-align:center;color:#713858}
+.subtitle{font:14px/1.75 Arial,sans-serif;color:#815b70;text-align:center;max-width:370px;margin:15px auto 0}
+.btn{border:0;border-radius:999px;padding:15px 23px;font:700 11px Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase;cursor:pointer;transition:transform .2s,filter .2s}
+.btn:active{transform:scale(.97)}
+.primary{background:linear-gradient(115deg,#7b3158,#4a2047);color:white;box-shadow:0 10px 25px #71385830}
+.secondary{background:#ffffffd9;color:#713858;border:1px solid #d99bb9}
+.hero-wrap{position:relative;display:flex;justify-content:center;align-items:center;width:100%;margin:12px 0 12px}
+.hero-art{width:min(92vw,440px);max-height:51svh;object-fit:contain;filter:drop-shadow(0 18px 22px #9e5a7930);display:block}
+.spark{position:absolute;color:#fff;font-size:23px;animation:twinkle 2.8s ease-in-out infinite;pointer-events:none}
+.s1{top:13%;left:10%}.s2{top:30%;right:8%}.s3{bottom:15%;left:16%}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.petal,.heart{position:fixed;z-index:-1;top:-10vh;pointer-events:none;animation:wind-fall linear infinite;opacity:.65}
+.petal{width:13px;height:19px;background:#f5a9c8;border-radius:100% 0 100% 0}
+.heart{color:#d879a5;font-size:17px}
+@keyframes wind-fall{0%{transform:translate3d(0,-5vh,0) rotate(0);opacity:0}12%{opacity:.75}45%{transform:translate3d(calc(var(--drift)*-.35),48vh,0) rotate(240deg)}72%{transform:translate3d(calc(var(--drift)*.7),80vh,0) rotate(430deg);opacity:.7}100%{transform:translate3d(var(--drift),115vh,0) rotate(650deg);opacity:0}}
+.nav{position:fixed;z-index:10;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:5px;padding:7px;background:#fff9;border:1px solid #fff;border-radius:999px;backdrop-filter:blur(14px);box-shadow:0 8px 30px #67314d20}
+.nav button{border:0;background:transparent;color:#8c6078;border-radius:999px;padding:11px 14px;font:700 10px Arial,sans-serif;letter-spacing:.04em;cursor:pointer}
+.nav button.active{background:#713858;color:#fff}
+.music-page{background:radial-gradient(ellipse at 50% 12%,#633a35 0,#211b1b 46%,#0c0c0e 100%);color:#fff;justify-content:flex-start!important;padding-top:max(28px,env(safe-area-inset-top))}
+.music-page .eyebrow{color:#e0c5d1;margin:8px 0 14px}
+.music-player{position:relative;width:min(100%,430px);padding:16px;border-radius:25px;overflow:hidden;background:#1119;border:1px solid #ffffff22;isolation:isolate}
+.backdrop{position:absolute;inset:-25px;background-size:cover;background-position:center;filter:blur(34px) brightness(.34) saturate(1.3);transform:scale(1.2);z-index:-2}
+.music-player:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#160d0d66,#090909bb);z-index:-1}
+.topline{display:flex;justify-content:space-between;font:700 9px Arial,sans-serif;letter-spacing:.2em;color:#ffffffa8;margin:0 2px 14px}
+.cover{display:block;width:min(70vw,300px);aspect-ratio:1;object-fit:cover;border-radius:13px;margin:0 auto 17px;box-shadow:0 18px 42px #0008}
+.meta{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.meta h2{color:#fff;text-align:left;font:700 21px/1.15 Arial,sans-serif;letter-spacing:-.035em}
+.meta p{font:12px/1.4 Arial,sans-serif;color:#c8c4c4;margin-top:7px}
+.seek{width:100%;margin:18px 0 3px;accent-color:#fff;cursor:pointer}
+.times{display:flex;justify-content:space-between;color:#d3d0d0;font:11px Arial,sans-serif}
+.controls{display:flex;align-items:center;justify-content:space-between;margin:13px 0 8px}
+.controls button{color:#fff;border:0;cursor:pointer}
+.small{background:none;font:21px Arial,sans-serif;padding:8px}
+.play{width:58px;height:58px;border-radius:50%;background:#ffffff27;font-size:23px}
+.hint{font:10px/1.5 Arial,sans-serif;color:#c9b7bd;text-align:center;margin:4px 0 0}
+.track-heading{width:min(100%,430px);font:700 9px Arial,sans-serif;letter-spacing:.19em;color:#d8b8c6;margin:17px 0 8px}
+.track-list{width:min(100%,430px);display:grid;gap:7px}
+.track{display:flex;align-items:center;gap:10px;padding:7px;border-radius:13px;background:#ffffff0d;border:1px solid #ffffff12;color:white;text-align:left;cursor:pointer;width:100%}
+.track.selected{background:#ffffff20;border-color:#ffffff55}
+.track img{width:47px;height:47px;object-fit:cover;border-radius:7px}
+.track b{display:block;font:700 12px Arial,sans-serif}
+.track small{display:block;color:#c5b7bd;font:10px Arial,sans-serif;margin-top:4px}
+.track em{margin-left:auto;color:#cbbbc2;font:12px Arial,sans-serif;font-style:normal;padding:0 7px}
+.birthday-card{width:min(100%,460px);padding:clamp(24px,5vw,34px) 22px;border:1px solid #fff;background:#fff9;border-radius:28px;box-shadow:0 16px 45px #9d54751c;text-align:center}
+.message{font:16px/1.85 Georgia,serif;color:#71465e;margin:18px auto;max-width:370px}
+.diya-button{border:0;background:transparent;cursor:pointer;margin:18px auto 8px;display:grid;place-items:center;gap:8px;color:#7c3d5e}
+.diya{font-size:78px;line-height:1;filter:drop-shadow(0 0 18px #ffb74d);animation:glow 1.8s ease-in-out infinite alternate}
+@keyframes glow{from{filter:drop-shadow(0 0 8px #ffb74d);transform:scale(.98)}to{filter:drop-shadow(0 0 26px #ff9e39);transform:scale(1.06)}}
+.diya-button span:last-child{font:700 10px Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+.video-wrap{display:none;width:100%;margin-top:17px}
+.video-wrap.show{display:block}
+.video-wrap video{width:100%;max-height:55svh;background:#140e13;border-radius:16px}
+.video-note{font:12px/1.6 Arial,sans-serif;color:#91627b;margin-top:10px}
+@media(min-width:700px){.music-page{align-items:center}.music-player{width:430px}.cover{width:300px}.page{padding-bottom:100px}}
+@media(max-width:420px){.page{padding-left:13px;padding-right:13px}.nav button{padding:10px 12px}.music-player{padding:13px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+
+/* Semi-realistic anime stylist studio */
+#page-3.stylist-page{justify-content:flex-start;padding-top:max(22px,env(safe-area-inset-top))}
+.studio{width:min(100%,980px);margin:14px auto 0;display:grid;grid-template-columns:minmax(250px,.9fr) minmax(300px,1.1fr);gap:16px;align-items:stretch}
+.studio-stage{position:relative;min-height:570px;border:1px solid #fff8;border-radius:25px;overflow:hidden;background:radial-gradient(ellipse at 50% 32%,#f9dce9 0,#9c627e 60%,#432d42 100%);box-shadow:0 16px 42px #5b2b4828;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:15px 10px 20px}
+.studio-stage:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,#fff2,transparent 38%,#2e18351c);pointer-events:none}
+.stage-lights{position:absolute;inset:0;background:radial-gradient(circle at 16% 12%,#fff9 0 2px,transparent 4px),radial-gradient(circle at 82% 20%,#fff8 0 2px,transparent 4px),radial-gradient(circle at 25% 42%,#ffd8ecaa 0 2px,transparent 5px),radial-gradient(circle at 78% 55%,#fff8 0 2px,transparent 5px);pointer-events:none}
+.stage-title{position:absolute;top:17px;left:10px;right:10px;text-align:center;color:#fff5;font:italic 23px Georgia,serif;letter-spacing:.04em}
+.model-wrap{position:relative;width:min(100%,360px);height:490px;z-index:1;display:flex;align-items:flex-end;justify-content:center}
+#animeModel{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 12px 12px #29172845)}
+.stage-caption{position:relative;z-index:2;color:#fff;font:700 9px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;margin-top:7px}
+.studio-controls{border:1px solid #fff;background:#fffafc;border-radius:25px;padding:16px;box-shadow:0 16px 42px #5b2b4818;min-width:0}
+.studio-brief{display:flex;justify-content:space-between;gap:8px;align-items:center;color:#95627d;font:700 9px Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+.studio-brief span:last-child{color:#713858}
+.style-tabs{display:flex;gap:6px;overflow-x:auto;padding:12px 0 10px;scrollbar-width:none}
+.style-tabs::-webkit-scrollbar{display:none}
+.style-tab{flex:0 0 auto;border:1px solid #e6bfd0;background:#fff;color:#78445f;border-radius:999px;padding:9px 12px;font:700 10px Arial,sans-serif;cursor:pointer}
+.style-tab.active{background:#713858;color:#fff;border-color:#713858;box-shadow:0 5px 14px #71385830}
+.style-heading{font:22px Georgia,serif;color:#713858;margin:7px 0 4px}
+.style-subheading{font:11px/1.5 Arial,sans-serif;color:#926d80;margin-bottom:12px}
+.style-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.style-choice{min-width:0;border:1px solid #e9ccda;background:linear-gradient(145deg,#fff,#fff5f9);border-radius:15px;padding:9px 5px 8px;color:#713858;cursor:pointer;transition:.18s}
+.style-choice .swatch{height:48px;border-radius:10px;display:grid;place-items:center;font-size:27px;margin-bottom:6px;background:linear-gradient(145deg,#f9e6ef,#fff)}
+.style-choice b{display:block;font:700 10px/1.25 Arial,sans-serif}
+.style-choice small{display:block;font:9px Arial,sans-serif;color:#a27a8d;margin-top:3px}
+.style-choice.selected{border:2px solid #8a3d64;background:#fce8f0;box-shadow:0 5px 15px #9d54751b}
+.style-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.style-actions .btn{flex:1;min-width:120px;padding:13px 12px}
+.style-rating{display:none;margin-top:12px;padding:13px;border-radius:16px;background:linear-gradient(135deg,#fff0f6,#f7d4e3);color:#713858;text-align:center}
+.style-rating.show{display:block;animation:enter .35s ease both}
+.style-rating strong{font:italic 24px Georgia,serif;display:block;margin:3px}
+.style-rating p{font:11px/1.6 Arial,sans-serif}
+.style-score-bars{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}
+.style-score-bars span{font:9px/1.4 Arial,sans-serif;background:#fff9;border-radius:9px;padding:7px 3px}
+.model-walk{animation:modelWalk .65s ease-in-out 3}
+@keyframes modelWalk{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-5px) rotate(-1deg)}75%{transform:translateY(-3px) rotate(1deg)}}
+@media(max-width:700px){.studio{grid-template-columns:1fr;max-width:480px}.studio-stage{min-height:480px}.model-wrap{height:410px;width:min(100%,320px)}.studio-controls{padding:13px}.style-grid{gap:6px}.style-choice .swatch{height:43px}}
+
+
+/* Stylist studio polish and touch-friendly catalogue */
+.studio-controls{background:linear-gradient(150deg,#fffafc,#fff1f7);}
+.style-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;}
+.style-choice{min-height:108px;padding:8px 6px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;}
+.style-choice .swatch{width:100%;height:55px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(145deg,#f7e5ed,#fff);font-size:29px;}
+.style-choice b{font-size:10px;line-height:1.25;text-align:center;}
+.style-choice small{font-size:8px;}
+.style-choice.selected{outline:2px solid #a94f78;outline-offset:1px;}
+.studio-stage{background:radial-gradient(ellipse at 50% 28%,#f8dce9 0,#a66c88 62%,#40283d 100%);}
+.studio-brief{flex-wrap:wrap;}
+@media(max-width:700px){.studio{grid-template-columns:1fr}.studio-stage{min-height:440px}.model-wrap{height:380px}.studio-controls{padding:12px}.style-tabs{gap:5px}.style-tab{padding:8px 10px}.style-choice{min-height:96px}}
+
+
+/* Rebuilt stylist atelier UI */
+#page-3.stylist-page{justify-content:flex-start;padding-top:max(18px,env(safe-area-inset-top))}
+.atelier-app{width:min(1120px,100%);display:grid;grid-template-columns:minmax(280px,.82fr) minmax(360px,1.18fr);gap:14px;margin:14px auto 0;align-items:stretch}
+.atelier-model-card{border:1px solid #ffffffaa;border-radius:26px;padding:14px;background:linear-gradient(150deg,#4c2a47,#9d6684 62%,#e7b9ce);box-shadow:0 18px 48px #60334a2b;display:flex;flex-direction:column;min-height:650px;position:relative;overflow:hidden}
+.atelier-sign{text-align:center;color:#fceaf2;font:italic 22px Georgia,serif;letter-spacing:.04em;padding:5px 0 10px}
+.atelier-scene{flex:1;min-height:520px;position:relative;border-radius:20px;background:radial-gradient(ellipse at 50% 20%,#f7dfe8,#b57a98 68%,#68445f);overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+.atelier-scene:before{content:"";position:absolute;left:8%;right:8%;bottom:18px;height:30px;border-radius:50%;background:#4d2a463b;filter:blur(12px)}
+#dressupModel{height:min(590px,90%);width:100%;max-width:360px;position:relative;z-index:1;overflow:visible;filter:drop-shadow(0 10px 9px #32182b33)}
+.atelier-spark{position:absolute;color:#fff3d7;font-size:18px;z-index:2}.s1{top:14%;left:13%}.s2{top:32%;right:12%}.s3{top:57%;left:8%}
+.atelier-floor-label{position:absolute;bottom:12px;z-index:3;color:#fff;font:700 8px Arial,sans-serif;letter-spacing:.18em}
+.atelier-model-actions{display:flex;gap:8px;margin-top:10px}.atelier-model-actions button{flex:1;border:1px solid #fff8;background:#ffffff18;color:#fff;border-radius:999px;padding:10px;font:700 10px Arial,sans-serif}
+.atelier-controls{border:1px solid #fff;background:linear-gradient(150deg,#fffdfd,#fff2f7);border-radius:26px;padding:16px;box-shadow:0 18px 48px #60334a16;min-width:0}
+.atelier-topline{display:flex;justify-content:space-between;gap:8px;color:#98627d;font:700 9px Arial,sans-serif;letter-spacing:.14em}
+.atelier-categories{display:flex;gap:6px;overflow-x:auto;padding:13px 0 15px;scrollbar-width:none}.atelier-categories::-webkit-scrollbar{display:none}
+.atelier-categories button{flex:0 0 auto;border:1px solid #e6c5d4;background:#fff;color:#74445e;border-radius:999px;padding:9px 11px;font:700 10px Arial,sans-serif}.atelier-categories button.active{background:#783653;color:#fff;border-color:#783653;box-shadow:0 5px 15px #78365330}
+.atelier-heading-row{display:flex;align-items:end;justify-content:space-between;gap:8px}.atelier-heading-row h3{font:italic 23px Georgia,serif;color:#67344f;margin:4px 0}.atelier-heading-row p{font:11px Arial,sans-serif;color:#987b89;margin:0 0 10px}.atelier-heading-row>span{font:700 10px Arial,sans-serif;color:#a16e86;padding-bottom:12px}
+.atelier-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.atelier-item{border:1px solid #ecd5df;border-radius:15px;background:linear-gradient(145deg,#fff,#f8e9ef);padding:7px 5px;min-width:0;cursor:pointer;color:#5d344b;transition:transform .16s,border .16s;position:relative}.atelier-item:active{transform:scale(.97)}.atelier-item.chosen{border:2px solid #bd4777;background:#fce6f0;box-shadow:0 5px 16px #b84b7822}
+.atelier-thumb{height:76px;display:grid;place-items:center;background:linear-gradient(145deg,#fff,#f3e3ea);border-radius:10px;margin-bottom:5px}.atelier-thumb svg{width:76px;height:68px}.atelier-item b{display:block;font:700 9px/1.25 Arial,sans-serif;min-height:23px}.atelier-item small{display:block;color:#b18499;font:700 7px Arial,sans-serif;letter-spacing:.08em;margin-top:3px}
+.atelier-selected{margin-top:13px;border:1px solid #f0dce5;border-radius:17px;padding:10px;background:#fff9}.atelier-selected-title{font:italic 17px Georgia,serif;color:#6f3d57;margin-bottom:7px}.atelier-selected #selectedLookStrip{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:5px}.atelier-selected #selectedLookStrip span{height:48px;border-radius:9px;background:#f8eaf0;display:grid;place-items:center;overflow:hidden}.atelier-selected #selectedLookStrip svg{width:42px;height:42px}
+.atelier-buttons{display:flex;gap:8px;margin-top:12px}.atelier-buttons button{border-radius:999px;padding:13px 12px;font:700 10px Arial,sans-serif;letter-spacing:.08em}.atelier-primary{flex:1;border:0;background:linear-gradient(100deg,#8a315c,#b44d7b);color:#fff;box-shadow:0 7px 18px #9b416b36}.atelier-secondary{border:1px solid #d9afc2;background:#fff;color:#75445c}
+.atelier-rating{display:none;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center;margin-top:12px;padding:12px;border-radius:16px;background:linear-gradient(120deg,#fce7f0,#fff6fa);color:#6d3651}.atelier-rating.visible{display:grid;animation:enter .35s ease both}.rating-crown{font-size:27px}.atelier-rating strong{display:block;font:italic 22px Georgia,serif}.atelier-rating span{display:block;font:10px/1.4 Arial,sans-serif;color:#956c80}.rating-bars{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.rating-bars span{background:#fff9;border-radius:9px;padding:7px;font:9px Arial,sans-serif}.rating-bars b{display:block;font-size:12px;margin-top:3px}
+.atelier-footnote{margin:13px 0 0}.runway-walk{animation:atelierWalk .55s ease-in-out 4}@keyframes atelierWalk{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-7px) rotate(-1deg)}75%{transform:translateY(-4px) rotate(1deg)}}
+@media(max-width:760px){.atelier-app{grid-template-columns:1fr;max-width:500px}.atelier-model-card{min-height:540px}.atelier-scene{min-height:470px}#dressupModel{height:455px}.atelier-controls{padding:12px}.atelier-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.atelier-thumb{height:62px}.atelier-thumb svg{height:58px}}
+@media(max-width:390px){.atelier-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.atelier-item b{font-size:8px}.atelier-categories button{padding:8px 9px}}
+
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <!-- PAGE 1: WELCOME -->
+  <section class="page active" id="page-0">
+    <div class="eyebrow">A little world made just for you</div>
+    <div class="hero-wrap">
+      <span class="spark s1">✦</span><span class="spark s2">♡</span><span class="spark s3">✧</span>
+      <img class="hero-art" src="diksha-character.gif" alt="Diksha's illustrated birthday bouquet" fetchpriority="high" decoding="async">
+    </div>
+    <h1>Happy Birthday,<br>Diksha</h1>
+    <p class="subtitle">A little music, a garden of flowers, and a whole lot of wishes — all for you.</p>
+    <button class="btn primary" style="margin-top:25px" onclick="go(1)">Enter your birthday world&nbsp; →</button>
+    <div class="eyebrow" style="margin-top:22px">Made with love · 10 November</div>
+  </section>
+
+  <!-- PAGE 2: TEN PHOTOS / TEN SONGS -->
+  <section class="page music-page" id="page-1">
+    <div class="eyebrow">Diksha's personal soundtrack</div>
+    <div class="music-player">
+      <div class="backdrop" id="backdrop"></div>
+      <div class="topline"><span>NOW PLAYING</span><span>♡</span></div>
+      <img id="cover" class="cover" src="cover-01.jpeg" alt="Song cover">
+      <div class="meta"><div><h2 id="songTitle">I Want You To Be My Last Love</h2><p id="songArtist">Calum Scott</p></div><span style="font-size:25px">♡</span></div>
+      <input class="seek" id="seek" type="range" min="0" max="100" value="0" aria-label="Song progress">
+      <div class="times"><span id="elapsed">0:00</span><span id="remaining">--:--</span></div>
+      <div class="controls">
+        <button class="small" id="shuffle" aria-label="Shuffle" title="Shuffle">⤨</button>
+        <button class="small" id="prev" aria-label="Previous" title="Previous">|◀</button>
+        <button class="play" id="play" aria-label="Play">▶</button>
+        <button class="small" id="next" aria-label="Next" title="Next">▶|</button>
+        <button class="small" id="repeat" aria-label="Repeat" title="Repeat">↻</button>
+      </div>
+      <p class="hint" id="hint">Songs load only when you press Play · 10 memories</p>
+    </div>
+    <div class="track-heading">10 MEMORIES · 10 SONGS</div>
+    <div class="track-list" id="trackList"></div>
+    <button class="btn secondary" style="margin-top:18px" onclick="go(2)">A birthday wish for you →</button>
+  </section>
+
+  <!-- PAGE 3: MESSAGE + TAP THE DIYA FOR VIDEO -->
+  <section class="page" id="page-2">
+    <div class="eyebrow">A little wish, from the heart</div>
+    <div class="birthday-card">
+      <div style="font-size:34px;color:#c66f98;margin-bottom:8px">✿ ♡ ✿</div>
+      <h2>Happy Birthday, Diksha!</h2>
+      <p class="message">May your days be filled with little reasons to smile, beautiful surprises, people who make you feel loved, and dreams that find their way to you. Keep shining in your own lovely way. May this new year bring you endless happiness, good health and unforgettable memories.</p>
+      <p class="subtitle">Wishing you the happiest birthday. You deserve all the beautiful things life has to offer.</p>
+      <button class="diya-button" id="diyaButton" aria-label="Light the diya and reveal your special video">
+        <span class="diya">🪔</span><span>Tap the diya for your special video</span>
+      </button>
+      <div class="video-wrap" id="videoWrap">
+        <video id="specialVideo" controls playsinline preload="metadata">
+          <source src="special-video.mp4" type="video/mp4">
+        </video>
+        <p class="video-note" id="videoNote">Add <b>special-video.mp4</b> to your repository root to make it play here.</p>
+      </div>
+    </div>
+    <button class="btn secondary" style="margin-top:18px" onclick="go(0)">Replay your little world ↺</button>
+  </section>
+
+
+  <!-- PAGE 4: SEMI-REALISTIC ANIME STYLIST STUDIO -->
+  <section class="page stylist-page" id="page-3">
+  <div class="eyebrow">Diksha's fashion playground</div>
+  <h2>Style the Runway</h2>
+  <p class="subtitle">Your muse. Your style. Build a complete look and send it down the runway.</p>
+  <div class="atelier-app">
+    <div class="atelier-model-card">
+      <div class="atelier-sign">THE FASHION ATELIER</div>
+      <div class="atelier-scene">
+        <div class="atelier-spark s1">✦</div><div class="atelier-spark s2">✧</div><div class="atelier-spark s3">✦</div>
+        <svg id="dressupModel" viewBox="0 0 360 620" role="img" aria-label="Anime fashion model wearing selected outfit">
+          <defs>
+            <linearGradient id="mSkin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe0c9"/><stop offset=".58" stop-color="#eeb99d"/><stop offset="1" stop-color="#c98776"/></linearGradient>
+            <linearGradient id="mHair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#17131d"/><stop offset=".48" stop-color="#493044"/><stop offset="1" stop-color="#1e1724"/></linearGradient>
+            <linearGradient id="mFabric" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#b7a2ae"/></linearGradient>
+            <linearGradient id="mStage" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f5d9e5"/><stop offset="1" stop-color="#a96f8c"/></linearGradient>
+            <filter id="mShadow"><feGaussianBlur stdDeviation="5"/></filter>
+          </defs>
+          <ellipse cx="180" cy="590" rx="104" ry="15" fill="#4c2940" opacity=".25" filter="url(#mShadow)"/>
+          <!-- long hair behind body -->
+          <path id="hairBack" d="M111 112 Q89 46 151 27 Q232 4 261 88 Q277 145 264 270 L286 473 Q270 525 238 500 L220 285 L132 285 L112 493 Q76 526 57 474 L88 235 Q75 157 111 112Z" fill="url(#mHair)"/>
+          <!-- legs -->
+          <path d="M135 365 Q128 420 132 482 L116 556 Q113 572 141 574 L165 495 L177 403 L187 495 L207 565 Q211 578 238 568 L219 478 Q227 418 211 365Z" fill="url(#mSkin)"/>
+          <!-- arms -->
+          <path d="M119 185 Q99 208 97 272 L78 365 Q75 385 93 389 Q110 388 116 368 L145 268Z" fill="url(#mSkin)"/>
+          <path d="M231 185 Q253 207 255 271 L275 361 Q280 382 261 389 Q245 389 239 367 L209 267Z" fill="url(#mSkin)"/>
+          <!-- neck -->
+          <path d="M145 142 L143 190 Q178 219 211 188 L204 139Z" fill="url(#mSkin)"/>
+          <!-- lower garment -->
+          <path id="modelBottom" d="M118 300 Q179 316 242 300 L225 485 L190 488 L180 369 L164 488 L129 485Z" fill="#eadccf" stroke="#9b7885" stroke-width="2"/>
+          <path id="bottomDetail" d="M180 316 L180 482 M118 318 Q180 332 242 318" stroke="#fff" stroke-width="2" opacity=".6" fill="none"/>
+          <!-- top -->
+          <path id="modelTop" d="M128 185 Q150 170 169 178 L190 178 Q214 170 232 187 L247 309 Q181 329 113 309Z" fill="#743b59" stroke="#4b2940" stroke-width="2"/>
+          <path id="topDetail" d="M180 189 L180 303 M143 204 Q180 225 217 204" stroke="#fff" stroke-width="2" opacity=".35" fill="none"/>
+          <path id="jacketLeft" d="M132 184 L108 202 L119 320 L158 313 L169 193 L180 219 L180 313 L145 321Z" fill="#743b59" stroke="#4b2940" stroke-width="2"/>
+          <path id="jacketRight" d="M228 184 L252 202 L241 320 L202 313 L191 193 L180 219 L180 313 L215 321Z" fill="#743b59" stroke="#4b2940" stroke-width="2"/>
+          <!-- head and ears -->
+          <ellipse cx="111" cy="126" rx="11" ry="17" fill="#e9b397"/><ellipse cx="249" cy="126" rx="11" ry="17" fill="#e9b397"/>
+          <path d="M111 90 Q115 43 178 40 Q245 43 249 98 L238 161 Q226 194 180 198 Q136 194 122 161Z" fill="url(#mSkin)" stroke="#c98776" stroke-width="1.5"/>
+          <!-- front fringe -->
+          <path d="M109 117 Q94 42 160 24 Q227 7 256 80 Q264 111 245 145 Q237 97 212 83 Q184 108 126 96 L118 144Z" fill="url(#mHair)"/>
+          <path d="M119 83 Q96 127 108 219 Q86 205 83 150 Q81 89 119 58Z M242 78 Q272 124 256 222 Q280 202 278 145 Q277 88 242 56Z" fill="url(#mHair)"/>
+          <!-- eyes with lashes -->
+          <path d="M133 125 Q151 108 169 125 Q151 143 133 125Z M191 125 Q209 108 227 125 Q209 143 191 125Z" fill="#fff"/>
+          <ellipse cx="153" cy="125" rx="7" ry="11" fill="#493344"/><ellipse cx="207" cy="125" rx="7" ry="11" fill="#493344"/>
+          <circle cx="155" cy="121" r="3" fill="#fff"/><circle cx="209" cy="121" r="3" fill="#fff"/>
+          <path d="M130 116 Q151 102 171 115 M189 115 Q209 102 230 116" stroke="#342330" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M179 137 Q172 151 181 153" stroke="#bb7d70" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M161 166 Q180 180 200 165" stroke="#a64f68" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <ellipse cx="143" cy="151" rx="12" ry="5" fill="#ef9997" opacity=".3"/><ellipse cx="217" cy="151" rx="12" ry="5" fill="#ef9997" opacity=".3"/>
+          <!-- hair accessory / glasses -->
+          <g id="modelHairFront" fill="none" stroke="#231a29" stroke-width="9" stroke-linecap="round"><path d="M107 99 Q91 180 112 252 M251 98 Q269 177 250 250"/></g>
+          <g id="modelSpecs" fill="none" stroke="#29202d" stroke-width="4"><rect x="127" y="113" width="43" height="27" rx="9"/><rect x="190" y="113" width="43" height="27" rx="9"/><path d="M170 122 L190 122"/></g>
+          <!-- neck jewellery -->
+          <path id="modelNecklace" d="M148 190 Q180 230 212 190" stroke="#d7ad68" stroke-width="3" fill="none"/><circle id="modelPendant" cx="180" cy="218" r="5" fill="#e7c37b"/>
+          <!-- shoes -->
+          <g id="modelShoes" fill="#f3e9e7" stroke="#5d3d50" stroke-width="2"><path d="M116 552 Q139 563 157 551 L166 580 Q149 595 108 586 Q103 574 116 552Z"/><path d="M203 551 Q222 563 239 550 L258 581 Q251 596 210 586 Q200 575 203 551Z"/></g>
+          <!-- bag -->
+          <g id="modelBag"><path d="M250 315 L306 315 L311 393 L245 393Z" fill="#342533" stroke="#d8b06e" stroke-width="4"/><path d="M262 318 Q260 275 278 275 Q297 275 295 318" fill="none" stroke="#d8b06e" stroke-width="5"/><path d="M270 351 L289 351" stroke="#d8b06e" stroke-width="4"/></g>
+          <g id="modelEarrings" fill="#e7c37b"><circle cx="112" cy="145" r="5"/><circle cx="248" cy="145" r="5"/></g>
+        </svg>
+        <div class="atelier-floor-label">DIKSHA'S ANIME RUNWAY MUSE · LIVE LOOK</div>
+      </div>
+      <div class="atelier-model-actions"><button type="button" id="randomLook">✧ Random look</button><button type="button" id="saveLook">↓ Save look</button></div>
+    </div>
+    <div class="atelier-controls">
+      <div class="atelier-topline"><span id="occasionBrief">STYLING BRIEF · BIRTHDAY BRUNCH</span><span id="lookProgress">0 / 8</span></div>
+      <div class="atelier-categories" id="atelierCategories">
+        <button class="active" data-cat="top">Top wear</button><button data-cat="bottom">Bottom</button><button data-cat="dress">Dresses</button><button data-cat="shoes">Footwear</button><button data-cat="bag">Bags</button><button data-cat="jewel">Jewellery</button><button data-cat="specs">Specs</button><button data-cat="hair">Hair</button>
+      </div>
+      <div class="atelier-heading-row"><div><h3 id="atelierHeading">Choose a top wear</h3><p id="atelierHint">Tap a design to dress your model.</p></div><span id="atelierPageCount">1 / 2</span></div>
+      <div class="atelier-grid" id="atelierGrid"></div>
+      <div class="atelier-selected"><div class="atelier-selected-title">♡ Selected Look</div><div id="selectedLookStrip"></div></div>
+      <div class="atelier-rating" id="atelierRating"><div class="rating-crown">♛</div><div><strong id="ratingValue">9.5 / 10</strong><span id="ratingMessage">A beautifully balanced runway look!</span></div><div class="rating-bars"><span>Creativity <b id="scoreCreativity">9.5</b></span><span>Colour match <b id="scoreColour">9.4</b></span><span>Overall <b id="scoreOverall">9.5</b></span></div></div>
+      <div class="atelier-buttons"><button class="atelier-primary" id="revealRunway">✧ Reveal runway look →</button><button class="atelier-secondary" id="resetRunway">Reset look</button></div>
+    </div>
+  </div>
+  <p class="subtitle atelier-footnote">Mix your favourite pieces, then reveal the final runway look. ♡</p>
+</section>
+
+  <nav class="nav" aria-label="Birthday pages">
+    <button class="active" onclick="go(0)">HOME</button>
+    <button onclick="go(1)">MUSIC</button>
+    <button onclick="go(2)">BIRTHDAY</button>
+    <button onclick="go(3)">STYLIST</button>
+  </nav>
+</div>
+
+<script>
+const pages=[...document.querySelectorAll('.page')], nav=[...document.querySelectorAll('.nav button')];
+let current=0;
+function go(n){
+  pages[current].classList.remove('active');
+  current=n;
+  pages[current].classList.add('active');
+  nav.forEach((b,i)=>b.classList.toggle('active',i===n));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+const songs=[
+ {title:'I Want You To Be My Last Love',artist:'Calum Scott',cover:'cover-01.jpeg',src:'song-01.mp3'},
+ {title:'I Wanna Grow Old With You',artist:'Westlife',cover:'cover-02.jpeg',src:'song-02.mp3'},
+ {title:'If You Only Knew',artist:'Riley Green',cover:'cover-03.jpeg',src:'song-03.mp3'},
+ {title:'Rang Jo Lagyo',artist:'Atif Aslam',cover:'cover-04.png',src:'song-04.mp3'},
+ {title:'Glad That I Met You',artist:'Ed Sheeran',cover:'cover-05.png',src:'song-05.mp3'},
+ {title:'Teri Nazron Ke Sadke',artist:'Ruposh',cover:'cover-06.png',src:'song-06.mp3'},
+ {title:'Meri Zindagi Hai Tu',artist:'Asim Azhar',cover:'cover-07.png',src:'song-07.mp3'},
+ {title:'Khoobsurat',artist:'Vishal Mishra',cover:'cover-08.png',src:'song-08.mp3'},
+ {title:'Teri Chand Baliyan',artist:'Mehmood J',cover:'cover-09.png',src:'song-09.mp3'},
+ {title:'Rehbara',artist:'Abhijeet Srivastava',cover:'cover-10.png',src:'song-10.mp3'}
+];
+const $=id=>document.getElementById(id);
+let index=0, audio=new Audio(), repeat=false, shuffle=false;
+audio.preload='none';
+function formatTime(v){return Number.isFinite(v)?Math.floor(v/60)+':'+String(Math.floor(v%60)).padStart(2,'0'):'--:--'}
+
+function setCover(filename){
+  const img=$('cover');
+  img.onerror=()=>{
+    if(!img.dataset.fallbackTried){
+      img.dataset.fallbackTried='1';
+      img.src='assets/covers/'+filename;
+    }else{
+      img.onerror=null;
+      img.alt='Cover image not found: '+filename;
+    }
+  };
+  img.dataset.fallbackTried='';
+  img.src=filename;
+}
+function setAudioSource(song){
+  audio.onerror=()=>{
+    const fallback='assets/music/'+song.src;
+    if(!audio.dataset.fallbackTried){
+      audio.dataset.fallbackTried='1';
+      audio.src=fallback;
+      audio.load();
+      audio.play().then(()=>{$('play').textContent='Ⅱ'}).catch(()=>{});
+    }else{
+      $('hint').textContent='File not found: '+song.src+' — check the filename in your GitHub repository.';
+    }
+  };
+  audio.dataset.fallbackTried='';
+  audio.preload='none';
+  audio.src=song.src;
+  audio.load();
+}
+function paint(){
+  const s=songs[index];
+  setCover(s.cover);
+  $('backdrop').style.backgroundImage=`url('${s.cover}')`;
+  $('songTitle').textContent=s.title;
+  $('songArtist').textContent=s.artist;
+  $('elapsed').textContent='0:00';
+  $('remaining').textContent='--:--';
+  $('seek').value=0;
+  $('play').textContent='▶';
+  document.querySelectorAll('.track').forEach((e,i)=>e.classList.toggle('selected',i===index));
+  audio.pause();
+  // Audio is intentionally NOT loaded here. It loads only after the user taps Play.
+}
+function play(){
+  // Load the selected MP3 only after a real user tap (saves mobile data and speeds up page opening).
+  if(audio.dataset.songIndex!==String(index)){
+    setAudioSource(songs[index]);
+    audio.dataset.songIndex=String(index);
+  }
+  const attempt=audio.play();
+  if(attempt && typeof attempt.then==='function'){
+    attempt.then(()=>{
+      $('play').textContent='Ⅱ';
+      $('hint').textContent='Now playing · '+songs[index].title;
+    }).catch(()=>{
+      $('play').textContent='▶';
+      $('hint').textContent='Tap Play again if Safari blocked playback, or check '+songs[index].src;
+    });
+  }
+}
+function toggle(){if(!audio.paused){audio.pause();$('play').textContent='▶'}else play()}
+function step(d){index=(index+d+songs.length)%songs.length;paint();play()}
+$('play').onclick=toggle;
+$('prev').onclick=()=>step(-1);
+$('next').onclick=()=>step(1);
+$('shuffle').onclick=()=>{shuffle=!shuffle;$('shuffle').style.opacity=shuffle?'1':'.5'};
+$('repeat').onclick=()=>{repeat=!repeat;audio.loop=repeat;$('repeat').style.opacity=repeat?'1':'.5'};
+$('seek').oninput=()=>{if(Number.isFinite(audio.duration))audio.currentTime=(+$('seek').value/100)*audio.duration};
+audio.ontimeupdate=()=>{
+  if(Number.isFinite(audio.duration)){
+    $('seek').value=audio.currentTime/audio.duration*100;
+    $('elapsed').textContent=formatTime(audio.currentTime);
+    $('remaining').textContent='-'+formatTime(audio.duration-audio.currentTime);
+  }
+};
+audio.onended=()=>{
+  if(repeat)return;
+  if(shuffle){let next=index;while(next===index)next=Math.floor(Math.random()*songs.length);index=next;paint();play()}
+  else step(1);
+};
+$('trackList').innerHTML=songs.map((s,i)=>`
+  <button class="track" data-i="${i}" type="button">
+    <img src="${s.cover}" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/covers/${s.cover}'">
+    <span><b>${s.title}</b><small>${s.artist}</small></span>
+    <em>${String(i+1).padStart(2,'0')}</em>
+  </button>`).join('');
+document.querySelectorAll('.track').forEach(el=>el.onclick=()=>{index=+el.dataset.i;paint();play()});
+paint();
+
+$('diyaButton').onclick=()=>{
+  const wrap=$('videoWrap'), video=$('specialVideo');
+  wrap.classList.add('show');
+  video.onerror=()=>{
+    if(!video.dataset.fallbackTried){
+      video.dataset.fallbackTried='1';
+      video.src='assets/video/special-video.mp4';
+      video.load();
+    }else{
+      $('videoNote').textContent='Video not found. Upload special-video.mp4 in the repository root, or assets/video/special-video.mp4.';
+    }
+  };
+  video.load();
+  video.play().then(()=>{$('videoNote').textContent='A little birthday surprise, just for you ♡'}).catch(()=>{
+    $('videoNote').textContent='If the video does not start automatically, tap the video Play button.';
+  });
+};
+
+const app=$('app');
+for(let i=0;i<18;i++){
+  const el=document.createElement('span');
+  el.className=i%3===0?'heart':'petal';
+  if(el.className==='heart')el.textContent='♡';
+  el.style.left=(Math.random()*100)+'%';
+  el.style.animationDuration=(9+Math.random()*12)+'s';
+  el.style.animationDelay=(-Math.random()*18)+'s';
+  el.style.setProperty('--drift',(Math.random()*150-75)+'px');
+  app.appendChild(el);
+}
+
+// Rebuilt interactive fashion atelier — all wardrobe pieces are drawn as SVG, not emoji.
+(()=>{
+ const $=id=>document.getElementById(id);
+ const categories={
+  top:{title:'Choose a top wear',hint:'Blouses, shirts, blazers, knits and statement tops.',items:[
+   ['Satin blouse','#f2e6df','blouse'],['Black knit top','#26232b','knit'],['Burgundy blazer','#74364f','blazer'],['Cream corset','#e8d4c1','corset'],['Pink puff sleeve','#d98eaa','puff'],['Blue shirt','#9ab4d0','shirt'],['Leather jacket','#29232a','leather'],['Ivory waistcoat','#e7dfd2','vest'],['Floral top','#d7a0a6','floral'],['Off-shoulder knit','#ead9c9','offshoulder'],['Emerald top','#397d69','knit'],['Wine wrap top','#8a3d64','wrap'] ]},
+  bottom:{title:'Choose a bottom wear',hint:'Tailored trousers, denim, skirts and shorts.',items:[
+   ['Wide-leg trousers','#e7d9c9','wide'],['Blue denim','#527ba5','jeans'],['Black tailored pants','#27242e','wide'],['Cargo pants','#b49a77','cargo'],['Pleated mini skirt','#292532','mini'],['Satin midi skirt','#b67b91','midi'],['Leather pants','#29232a','wide'],['Cream shorts','#e8d7c5','shorts'],['Burgundy skirt','#78384f','midi'],['Classic straight jeans','#6c8eae','jeans'] ]},
+  dress:{title:'Choose a dress',hint:'One-piece looks for every occasion.',items:[
+   ['Black evening dress','#28202b','longdress'],['Rose wrap dress','#c9829e','wrapdress'],['Champagne satin dress','#e5cdb5','longdress'],['Floral summer dress','#d69ca7','floralDress'],['Burgundy party dress','#77334f','party'],['White shirt dress','#eee5dc','shirtDress'],['Emerald midi dress','#397b68','longdress'],['Little black dress','#211e27','party'] ]},
+  shoes:{title:'Choose your footwear',hint:'Heels, sneakers, boots and sandals.',items:[
+   ['Nude heels','#d8b4a5','heel'],['Black stilettos','#28212b','heel'],['White sneakers','#f5f0ed','sneaker'],['Ankle boots','#4b3038','boot'],['Gold sandals','#caa66e','sandal'],['Pink heels','#d98ca9','heel'],['Platform shoes','#8b526b','platform'],['Classic loafers','#49343b','loafer'] ]},
+  bag:{title:'Choose a handbag',hint:'The finishing touch for your outfit.',items:[
+   ['Black mini bag','#29232d','handbag'],['Tan shoulder bag','#a8754d','handbag'],['Pink clutch','#d98eaa','clutch'],['Cream tote','#e7d9c9','tote'],['Burgundy bag','#74364f','handbag'],['Silver evening bag','#b8b5c3','clutch'],['Woven summer bag','#c69d68','tote'],['No bag','transparent','none'] ]},
+  jewel:{title:'Choose jewellery',hint:'Necklaces, earrings and delicate details.',items:[
+   ['Gold hoops','#d7ad68','hoops'],['Pearl drops','#f2e6d7','pearls'],['Layered necklace','#d7ad68','necklace'],['Diamond sparkle','#c9c7d5','sparkle'],['Rose-gold set','#c88b78','necklace'],['Statement earrings','#d98eaa','drops'],['Minimal studs','#e7c37b','studs'],['No jewellery','transparent','none'] ]},
+  specs:{title:'Choose specs & sunglasses',hint:'Frames that finish the look.',items:[
+   ['Black cat-eye','#29202d','cat'],['Classic aviators','#6e5749','aviator'],['Round frames','#553d54','round'],['Clear frames','#c5a6a4','clear'],['Oversized shades','#211d27','oversized'],['Rose-tint glasses','#b86d8d','rose'],['Gold wire frames','#c9a15f','wire'],['No specs','transparent','none'] ]},
+  hair:{title:'Choose a hairstyle',hint:'Change the model’s hair shape and colour.',items:[
+   ['Long waves','#241923','long'],['High bun','#241923','bun'],['Sleek ponytail','#241923','pony'],['Short bob','#241923','bob'],['Half-up style','#241923','half'],['Caramel brown','#80543c','long'],['Soft auburn','#8a4939','long'],['Black glossy','#17131d','long'] ]}
+ };
+ const keys=Object.keys(categories), picked={}, pageIndex={}; let active='top', runwayTimer=null;
+ const categoryNames={top:'TOP',bottom:'BOTTOM',dress:'DRESS',shoes:'SHOES',bag:'BAG',jewel:'JEWELLERY',specs:'SPECS',hair:'HAIR'};
+ function garmentSVG(type,color){
+  let shape='';
+  if(['blouse','shirt','puff','wrap','knit','leather','vest','corset','offshoulder','floral','blazer'].includes(type)){
+   shape= type==='blazer'||type==='leather'?'<path d="M25 12 L12 22 L18 92 L47 88 L50 30 L55 45 L60 30 L63 88 L92 92 L98 22 L85 12 L68 8 L55 29 L42 8Z"/>':'<path d="M32 10 Q45 2 55 9 Q68 2 80 10 L94 25 L87 92 L25 92 L18 25Z"/>';
+  } else if(['wide','jeans','cargo','shorts'].includes(type)) shape=type==='shorts'?'<path d="M18 10 Q55 18 92 10 L87 56 L58 56 L55 34 L48 56 L22 56Z"/>':'<path d="M18 10 Q55 18 92 10 L84 96 L59 96 L55 35 L48 96 L24 96Z"/>';
+  else if(['mini','midi'].includes(type)) shape='<path d="M18 8 Q55 17 92 8 L100 95 Q55 105 10 95Z"/>';
+  else if(['longdress','wrapdress','floralDress','party','shirtDress'].includes(type)) shape='<path d="M32 7 Q55 0 78 7 L92 24 L82 42 L100 112 L10 112 L28 42 L18 24Z"/>';
+  else if(['heel','sneaker','boot','sandal','platform','loafer'].includes(type)) shape='<path d="M12 60 Q35 62 48 42 L62 55 Q72 69 96 72 L96 88 L15 88 Q4 82 12 60Z"/>';
+  else if(['handbag','clutch','tote'].includes(type)) shape='<path d="M18 35 L88 35 L94 94 L12 94Z"/><path d="M32 36 Q30 4 53 4 Q77 4 74 36" fill="none" stroke="#8b654e" stroke-width="7"/>';
+  else if(['hoops','pearls','necklace','sparkle','drops','studs'].includes(type)) shape='<path d="M20 22 Q55 95 90 22" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="20" cy="23" r="8"/><circle cx="90" cy="23" r="8"/><circle cx="55" cy="91" r="8"/>';
+  else if(['cat','aviator','round','clear','oversized','rose','wire'].includes(type)) shape='<rect x="8" y="25" width="38" height="29" rx="10" fill="none" stroke="currentColor" stroke-width="5"/><rect x="64" y="25" width="38" height="29" rx="10" fill="none" stroke="currentColor" stroke-width="5"/><path d="M46 34 L64 34" stroke="currentColor" stroke-width="5"/>';
+  else shape='<circle cx="55" cy="48" r="32"/>';
+  return `<svg viewBox="0 0 110 120" aria-hidden="true"><g fill="${color}" stroke="#6b4b5d" stroke-width="2" stroke-linejoin="round">${shape}</g><path d="M24 20 Q55 34 86 20" fill="none" stroke="#fff" opacity=".55" stroke-width="3"/></svg>`;
+ }
+ function render(){
+  const data=categories[active], page=pageIndex[active]||0, start=page*8, items=data.items.slice(start,start+8);
+  $('atelierHeading').textContent=data.title; $('atelierHint').textContent=data.hint;
+  $('atelierPageCount').textContent=(page+1)+' / '+Math.ceil(data.items.length/8);
+  $('atelierGrid').innerHTML=items.map((it,i)=>{let ix=start+i;return `<button class="atelier-item ${picked[active]===ix?'chosen':''}" data-index="${ix}" type="button"><span class="atelier-thumb">${garmentSVG(it[2],it[1])}</span><b>${it[0]}</b><small>${picked[active]===ix?'SELECTED':'TAP TO TRY'}</small></button>`}).join('');
+  document.querySelectorAll('.atelier-item').forEach(btn=>btn.onclick=()=>{picked[active]=+btn.dataset.index;applyLook();render();$('atelierRating').classList.remove('visible')});
+  $('lookProgress').textContent=Object.keys(picked).length+' / 8';
+  document.querySelectorAll('[data-cat]').forEach(b=>b.classList.toggle('active',b.dataset.cat===active));
+ }
+ function getPick(k){return categories[k].items[picked[k]??(k==='hair'?0:0)]}
+ function applyLook(){
+  let top=getPick('top'), bottom=getPick('bottom'), dress=getPick('dress'), shoes=getPick('shoes'), bag=getPick('bag'), jewel=getPick('jewel'), specs=getPick('specs'), hair=getPick('hair');
+  const dressOn=picked.dress!==undefined;
+  $('modelTop').setAttribute('fill',dressOn?'transparent':top[1]); $('modelTop').style.display=dressOn?'none':'';
+  $('jacketLeft').style.display=(!dressOn&&['blazer','leather'].includes(top[2]))?'':'none'; $('jacketRight').style.display=(!dressOn&&['blazer','leather'].includes(top[2]))?'':'none';
+  $('modelBottom').setAttribute('fill',dressOn?dress[1]:bottom[1]);
+  $('modelBottom').setAttribute('d',dressOn?'M128 185 Q180 207 232 185 L253 485 Q180 514 107 485Z':(['mini','midi'].includes(bottom[2])?'M118 300 Q180 320 242 300 L252 455 Q180 470 108 455Z':bottom[2]==='shorts'?'M118 300 Q180 316 242 300 L234 365 L185 365 L180 345 L174 365 L126 365Z':'M118 300 Q180 316 242 300 L225 485 L190 488 L180 369 L164 488 L129 485Z'));
+  $('bottomDetail').style.display=dressOn?'none':'';
+  $('modelShoes').querySelectorAll('path').forEach(p=>p.setAttribute('fill',shoes[1]));
+  $('modelBag').style.display=bag[2]==='none'?'none':''; $('modelBag').querySelectorAll('path').forEach(p=>p.setAttribute('fill',bag[1]));
+  $('modelNecklace').style.display=jewel[2]==='none'?'none':''; $('modelPendant').style.display=jewel[2]==='none'?'none':''; $('modelNecklace').setAttribute('stroke',jewel[1]); $('modelPendant').setAttribute('fill',jewel[1]);
+  $('modelEarrings').style.display=jewel[2]==='none'?'none':''; $('modelEarrings').setAttribute('fill',jewel[1]);
+  $('modelSpecs').style.display=specs[2]==='none'?'none':''; $('modelSpecs').setAttribute('stroke',specs[1]);
+  const hairColor=hair[1]; $('hairBack').setAttribute('fill',hairColor); $('modelHairFront').setAttribute('stroke',hairColor);
+  const hairPaths={long:'M111 112 Q89 46 151 27 Q232 4 261 88 Q277 145 264 270 L286 473 Q270 525 238 500 L220 285 L132 285 L112 493 Q76 526 57 474 L88 235 Q75 157 111 112Z',bob:'M111 112 Q89 46 151 27 Q232 4 261 88 L252 300 L108 300 L88 235 Q75 157 111 112Z',bun:'M111 112 Q89 46 151 27 Q232 4 261 88 L264 270 L238 500 L220 285 L132 285 L112 493 L88 235Z M135 48 Q180 -5 226 48 Q235 87 180 91 Q125 87 135 48Z',pony:'M111 112 Q89 46 151 27 Q232 4 261 88 L252 300 L108 300Z M245 88 Q306 105 286 250 L267 360 L250 350Z',half:'M111 112 Q89 46 151 27 Q232 4 261 88 Q277 145 264 270 L286 473 L238 500 L220 285 L132 285 L112 493 L57 474 L88 235Z'};
+  $('hairBack').setAttribute('d',hairPaths[hair[2]]||hairPaths.long);
+  $('selectedLookStrip').innerHTML=['top','bottom','dress','shoes','bag','jewel','specs','hair'].map(k=>{let item=getPick(k);return `<span title="${item[0]}">${garmentSVG(item[2],item[1])}</span>`}).join('');
+  $('lookProgress').textContent=Object.keys(picked).length+' / 8';
+ }
+ document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{active=b.dataset.cat;render()});
+ $('atelierHeading').addEventListener('click',()=>{pageIndex[active]=((pageIndex[active]||0)+1)%Math.ceil(categories[active].items.length/8);render()});
+ $('revealRunway').onclick=()=>{let missing=keys.filter(k=>picked[k]===undefined);if(missing.length){active=missing[0];render();$('atelierHint').textContent='Choose one piece in this category to complete your look.';return;}let total=Object.values(picked).reduce((a,b)=>a+b,0);let score=(8.8+(total%12)/10).toFixed(1);$('ratingValue').textContent=score+' / 10';$('scoreCreativity').textContent=(+score+.1).toFixed(1);$('scoreColour').textContent=(+score-.2).toFixed(1);$('scoreOverall').textContent=score;$('ratingMessage').textContent='Runway ready! '+keys.map(k=>getPick(k)[0]).join(' · ');$('atelierRating').classList.add('visible');$('dressupModel').classList.remove('runway-walk');void $('dressupModel').offsetWidth;$('dressupModel').classList.add('runway-walk')};
+ $('resetRunway').onclick=()=>{keys.forEach(k=>delete picked[k]);active='top';Object.keys(pageIndex).forEach(k=>pageIndex[k]=0);$('atelierRating').classList.remove('visible');applyLook();render()};
+ $('randomLook').onclick=()=>{keys.forEach(k=>picked[k]=Math.floor(Math.random()*categories[k].items.length));active='top';applyLook();render();$('atelierRating').classList.remove('visible')};
+ $('saveLook').onclick=()=>{const svg=$('dressupModel').outerHTML;const blob=new Blob([svg],{type:'image/svg+xml'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='diksha-runway-look.svg';a.click();URL.revokeObjectURL(url)};
+ $('occasionBrief').onclick=()=>{const occasions=['BIRTHDAY BRUNCH','COFFEE DATE','RED-CARPET NIGHT','CITY STREET STYLE','SUMMER PARTY','MOUNTAIN GETAWAY'];let n=occasions.indexOf($('occasionBrief').textContent.split('· ')[1]);$('occasionBrief').textContent='STYLING BRIEF · '+occasions[(n+1)%occasions.length]};
+ render();applyLook();
+})();
+</script>
+</body>
+</html>
